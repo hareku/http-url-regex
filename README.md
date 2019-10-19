@@ -5,6 +5,7 @@ A lightweight regular expression library for HTTP URLs.
 - Less than **300 Bytes**
 - Only `http` or `https`
 - Support TypeScript
+- Support ES5
 
 ## Installation
 

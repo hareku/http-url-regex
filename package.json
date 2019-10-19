@@ -1,14 +1,16 @@
 {
   "name": "http-url-regex",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "main": "index.js",
   "repository": "git@github.com:hareku/http-url-regex.git",
   "author": "hareku <hareku908@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "test:es5": "es-check es5 ./index.js"
   },
   "devDependencies": {
+    "es-check": "^5.0.0",
     "jest": "^24.9.0"
   }
 }
