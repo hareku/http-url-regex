@@ -15,7 +15,6 @@ test('matches url', function() {
   const fixtures = [
 		'http://example.com',
 		'https://example.com',
-		'http://example.com..',
 		'http://www.example.com',
 		'http://www.sub.example.com',
 		'http://example.com?foo=bar',
@@ -28,13 +27,14 @@ test('matches url', function() {
   ]
 
   fixtures.forEach(function(fixture) {
-    expect(url.test(fixture)).toBe(true)
+    expect((new RegExp(`^${url.source}$`)).test(fixture)).toBe(true)
   })
 })
 
 test('does not matche url', function() {
   const fixtures = [
     'https://example',
+    'https://example.com\n',
     'https://example a',
     '://example.com',
     'example.com',
@@ -42,7 +42,7 @@ test('does not matche url', function() {
   ]
 
   fixtures.forEach(function(fixture) {
-    expect(url.test(fixture)).toBe(false)
+    expect((new RegExp(`^${url.source}$`)).test(fixture)).toBe(false)
   })
 })
 
@@ -51,4 +51,11 @@ test('removes url scheme', () => {
   expect(input.replace(url, function(match) {
     return match.replace(new RegExp(scheme), '')
   })).toBe('This is my site: example.com')
+})
+
+test('removes two url schemes', () => {
+  const input = 'https://example.com\nand https://blog.example.com'
+  expect(input.replace(new RegExp(url, 'ig'), function(match) {
+    return match.replace(new RegExp(scheme), '')
+  })).toBe('example.com\nand blog.example.com')
 })
