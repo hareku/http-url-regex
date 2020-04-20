@@ -1,4 +1,4 @@
-const { scheme, url } = require('./index')
+const { scheme, url, url_no_scheme } = require('./index')
 
 describe('scheme regex', function() {
   it('matches http schemes', () => {
@@ -58,6 +58,20 @@ describe('url regex', function() {
 
     fixtures.forEach(function(fixture) {
       expect((new RegExp(`^${url.source}$`)).test(fixture)).toBe(false)
+    })
+  })
+})
+
+describe('url_no_scheme regex', function() {
+  it('matches URLs without scheme', () => {
+    const fixtures = [
+      'example.com',
+      'www.example.com',
+      'example.com/path',
+    ]
+
+    fixtures.forEach(function(fixture) {
+      expect((new RegExp(`^${url_no_scheme.source}$`)).test(fixture)).toBe(true)
     })
   })
 })
