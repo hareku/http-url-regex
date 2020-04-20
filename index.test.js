@@ -48,6 +48,7 @@ describe('url regex', function() {
   it('does not match non http URLs', () => {
     const fixtures = [
       'https://example',
+      'https://example.123',
       'https://ex_ample.com',
       'https://example.com\n',
       'http://漢字.com',
