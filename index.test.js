@@ -30,6 +30,7 @@ describe('url regex', function() {
     const fixtures = [
       'http://example.com',
       'https://example.com',
+      'https://ex-ample.com',
       'http://www.example.com',
       'http://www.sub.example.com',
       'http://example.com?foo=bar',
@@ -37,8 +38,6 @@ describe('url regex', function() {
       'http://example.com#foo?foo=bar',
       'http://example.com/@me',
       'http://example.com/@me/info',
-      'http://漢字.com',
-      'http://ひらがな.com',
     ]
 
     fixtures.forEach(function(fixture) {
@@ -49,7 +48,10 @@ describe('url regex', function() {
   it('does not match non http URLs', () => {
     const fixtures = [
       'https://example',
+      'https://ex_ample.com',
       'https://example.com\n',
+      'http://漢字.com',
+      'http://ひらがな.com',
       'https://example a',
       '://example.com',
       'example.com',

@@ -1,5 +1,5 @@
 var scheme = /https?:\/\//
-var domain = /(?:[a-z\u00a1-\uffff0-9][-_.]*)*\.+[a-z\u00a1-\uffff0-9]+/
+var domain = /(?:[a-zA-Z0-9][-.]*)*\.+[a-zA-Z0-9]+/
 var path = /([/?#][^\s"]*)?/
 var url = new RegExp(scheme.source + domain.source + path.source)
 var url_no_scheme = new RegExp(domain.source + path.source)
