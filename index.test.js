@@ -28,6 +28,7 @@ describe('scheme regex', function() {
 describe('url regex', function() {
   it('matches correct http URLs', () => {
     const fixtures = [
+      'http://a.com',
       'http://example.com',
       'https://example.com',
       'https://ex-ample.com',
@@ -48,6 +49,7 @@ describe('url regex', function() {
   it('does not match non http URLs', () => {
     const fixtures = [
       'https://example',
+      'https://a.b',
       'https://example.123',
       'https://ex_ample.com',
       'https://example.com\n',
