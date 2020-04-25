@@ -27,56 +27,49 @@ describe('scheme regex', function() {
 
 describe('url regex', function() {
   it('matches correct http URLs', () => {
-    const fixtures = [
-      'http://a.com',
-      'http://example.com',
-      'https://example.com',
-      'https://ex-ample.com',
-      'http://www.example.com',
-      'http://www.sub.example.com',
-      'http://example.com?foo=bar',
-      'http://example.com#foo',
-      'http://example.com#foo?foo=bar',
-      'http://example.com/@me',
-      'http://example.com/@me/info',
-    ]
+    const urlRegex = new RegExp(`^${url.source}$`)
 
-    fixtures.forEach(function(fixture) {
-      expect((new RegExp(`^${url.source}$`)).test(fixture)).toBe(true)
-    })
+    expect(urlRegex.test('http://ab.com')).toBe(true)
+    expect(urlRegex.test('http://abc.co.jp')).toBe(true)
+    expect(urlRegex.test('http://abc.def.co.jp')).toBe(true)
+    expect(urlRegex.test('http://example.com')).toBe(true)
+    expect(urlRegex.test('https://example.com')).toBe(true)
+    expect(urlRegex.test('https://ex-ample.com')).toBe(true)
+    expect(urlRegex.test('http://www.example.com')).toBe(true)
+    expect(urlRegex.test('http://www.sub.example.com')).toBe(true)
+    expect(urlRegex.test('http://example.com?foo=bar')).toBe(true)
+    expect(urlRegex.test('http://example.com#foo')).toBe(true)
+    expect(urlRegex.test('http://example.com#foo?foo=bar')).toBe(true)
+    expect(urlRegex.test('http://example.com/@me')).toBe(true)
+    expect(urlRegex.test('http://example.com/@me/info')).toBe(true)
   })
 
   it('does not match non http URLs', () => {
-    const fixtures = [
-      'https://example',
-      'https://a.b',
-      'https://example.123',
-      'https://ex_ample.com',
-      'https://example.com\n',
-      'http://漢字.com',
-      'http://ひらがな.com',
-      'https://example a',
-      '://example.com',
-      'example.com',
-      'ftp://example.com',
-    ]
+    const urlRegex = new RegExp(`^${url.source}$`)
 
-    fixtures.forEach(function(fixture) {
-      expect((new RegExp(`^${url.source}$`)).test(fixture)).toBe(false)
-    })
+    expect(urlRegex.test('https://example')).toBe(false)
+    expect(urlRegex.test('https://a.com')).toBe(false)
+    expect(urlRegex.test('https://abc..com')).toBe(false)
+    expect(urlRegex.test('https://abc-.com')).toBe(false)
+    expect(urlRegex.test('https://ab\\c.com')).toBe(false)
+    expect(urlRegex.test('https://example.123')).toBe(false)
+    expect(urlRegex.test('https://ex_ample.com')).toBe(false)
+    expect(urlRegex.test('https://example.com\n')).toBe(false)
+    expect(urlRegex.test('http://漢字.com')).toBe(false)
+    expect(urlRegex.test('http://ひらがな.com')).toBe(false)
+    expect(urlRegex.test('https://example a')).toBe(false)
+    expect(urlRegex.test('://example.com')).toBe(false)
+    expect(urlRegex.test('example.com')).toBe(false)
+    expect(urlRegex.test('ftp://example.com')).toBe(false)
   })
 })
 
 describe('url_no_scheme regex', function() {
   it('matches URLs without scheme', () => {
-    const fixtures = [
-      'example.com',
-      'www.example.com',
-      'example.com/path',
-    ]
+    const urlNoSchemeRegex = new RegExp(`^${url_no_scheme.source}$`)
 
-    fixtures.forEach(function(fixture) {
-      expect((new RegExp(`^${url_no_scheme.source}$`)).test(fixture)).toBe(true)
-    })
+    expect(urlNoSchemeRegex.test('example.com')).toBe(true)
+    expect(urlNoSchemeRegex.test('www.example.com')).toBe(true)
+    expect(urlNoSchemeRegex.test('example.com/path')).toBe(true)
   })
 })
