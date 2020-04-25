@@ -49,9 +49,11 @@ describe('url regex', function() {
 
     expect(urlRegex.test('https://example')).toBe(false)
     expect(urlRegex.test('https://a.com')).toBe(false)
-    expect(urlRegex.test('https://abc..com')).toBe(false)
-    expect(urlRegex.test('https://abc-.com')).toBe(false)
-    expect(urlRegex.test('https://ab\\c.com')).toBe(false)
+    expect(urlRegex.test('https://1.example.com')).toBe(false)
+    expect(urlRegex.test('https://.example.com')).toBe(false)
+    expect(urlRegex.test('https://example..com')).toBe(false)
+    expect(urlRegex.test('https://example-.com')).toBe(false)
+    expect(urlRegex.test('https://exampl\\e.com')).toBe(false)
     expect(urlRegex.test('https://example.123')).toBe(false)
     expect(urlRegex.test('https://ex_ample.com')).toBe(false)
     expect(urlRegex.test('https://example.com\n')).toBe(false)
@@ -65,11 +67,20 @@ describe('url regex', function() {
 })
 
 describe('url_no_scheme regex', function() {
-  it('matches URLs without scheme', () => {
+  it('matches URLs that does not have http-scheme', () => {
     const urlNoSchemeRegex = new RegExp(`^${url_no_scheme.source}$`)
 
     expect(urlNoSchemeRegex.test('example.com')).toBe(true)
-    expect(urlNoSchemeRegex.test('www.example.com')).toBe(true)
     expect(urlNoSchemeRegex.test('example.com/path')).toBe(true)
+    expect(urlNoSchemeRegex.test('www.example.com')).toBe(true)
+  })
+
+  it('does not matche non-correct-URLs', () => {
+    const urlNoSchemeRegex = new RegExp(`^${url_no_scheme.source}$`)
+
+    expect(urlNoSchemeRegex.test('.https')).toBe(false)
+    expect(urlNoSchemeRegex.test('.example.com')).toBe(false)
+    expect(urlNoSchemeRegex.test('.www.example.com')).toBe(false)
+    expect(urlNoSchemeRegex.test('https://example.com')).toBe(false)
   })
 })
