@@ -4,7 +4,7 @@ A lightweight regular expression library for HTTP URLs.
 
 - Support TypeScript
 - Support ES5
-- Less than **300 Bytes**
+- Less than **400 Bytes** (not compressed)
 
 ## Installation
 
